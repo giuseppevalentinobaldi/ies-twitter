@@ -78,7 +78,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 				} else {
 					ex.printStackTrace();
 
-					System.out.println("Error / Rate limit reached, sleeping for preset time." + new Date() + " "
+					System.out.println("Error / Rate limit reached, sleeping for preset time. " + new Date() + " "
 							+ ex.getMessage());
 					try {
 						Thread.sleep(1000 * 60 * Util.ThrottlerWaitTimeMinutes);

@@ -78,7 +78,7 @@ public class BasicTimelineCrawler implements Runnable {
 			} else {
 
 				System.out.println(
-						"Error / Rate limit reached, sleeping for pre-set time." + new Date() + " " + ex.getMessage());
+						"Error / Rate limit reached, sleeping for pre-set time. " + new Date() + " " + ex.getMessage());
 				try {
 					Thread.sleep(1000 * 60 * Util.ThrottlerWaitTimeMinutes);
 				} catch (InterruptedException e) {
