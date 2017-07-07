@@ -30,13 +30,15 @@ SOFTWARE.
  * @author JSON.org
  * @version 2008-09-18
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class XMLTokener extends JSONTokener {
 
 
    /** The table of entity values. It initially contains Character values for
     * amp, apos, gt, lt, quot.
     */
-   public static final java.util.HashMap entity;
+
+public static final java.util.HashMap entity;
 
    static {
        entity = new java.util.HashMap(8);

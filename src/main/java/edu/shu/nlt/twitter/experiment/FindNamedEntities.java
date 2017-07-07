@@ -5,7 +5,6 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import edu.nlt.util.InputUtil;
-import edu.nlt.util.LPMultiThreader;
 import edu.nlt.util.processor.LineProcessor;
 import edu.shu.nlt.ie.NERUtil;
 import edu.shu.nlt.ie.NamedEntity;

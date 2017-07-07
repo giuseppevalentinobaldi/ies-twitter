@@ -19,6 +19,7 @@ public class RuleMatcher {
 	/**
 	 * Question, followed by an answer
 	 */
+	@SuppressWarnings("unused")
 	private ExtractionRule StatementRule = new StatementRule();
 
 	/**

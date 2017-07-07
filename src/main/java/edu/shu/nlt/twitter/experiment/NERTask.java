@@ -66,7 +66,7 @@ public class NERTask implements Runnable {
 
 			NETotal += entities.size();
 
-			System.out.println("Total: " + sentencesTotal + " TotalNE: " + sentencesWithNE + " NE:" + NETotal);
+			System.out.println("Total: " + getSentencesTotal() + " TotalNE: " + getSentencesWithNE() + " NE:" + NETotal);
 		}
 
 	}

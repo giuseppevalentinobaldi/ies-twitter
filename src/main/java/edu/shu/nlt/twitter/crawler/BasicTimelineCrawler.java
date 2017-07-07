@@ -5,10 +5,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-
 import winterwell.jtwitter.OAuthSignpostClient;
 import winterwell.jtwitter.Twitter;
-import winterwell.jtwitter.TwitterException.TwitLongerException;
 import edu.shu.nlt.twitter.crawler.data.Status;
 import edu.shu.nlt.twitter.crawler.data.Timeline;
 import edu.shu.nlt.twitter.crawler.data.User;
@@ -25,6 +23,19 @@ import edu.shu.nlt.twitter.crawler.repository.PersistentCache;
 public class BasicTimelineCrawler implements Runnable {
 
 	static final int NUM_OF_UPDATES_TO_RETRIEVE = 20;
+
+	private PersistentCache repository;
+	private long userId;
+	private String userScreenName;
+	private Twitter twitter;
+
+	public BasicTimelineCrawler(Twitter twitter, PersistentCache repository, long userId, String userScreenName) {
+		super();
+		this.twitter = twitter;
+		this.repository = repository;
+		this.userId = userId;
+		this.userScreenName = userScreenName;
+	}
 
 	private static List<Status> adaptStatusList(List<winterwell.jtwitter.Status> statusList) {
 		List<Status> adaptedStatus = new ArrayList<Status>(statusList.size());
@@ -56,7 +67,6 @@ public class BasicTimelineCrawler implements Runnable {
 
 		Timeline timeline;
 		try {
-			checkRateLimitStatus();
 			List<winterwell.jtwitter.Status> statusList = twitter.getUserTimeline(user.getScreenName());
 			timeline = Timeline.getInstance(user.getScreenName(), adaptStatusList(statusList), new Date());
 
@@ -67,8 +77,8 @@ public class BasicTimelineCrawler implements Runnable {
 				timeline = Timeline.getInstance(user.getScreenName(), null, new Date());
 			} else {
 
-				System.out.println("Error / Rate limit reached, sleeping for pre-set time." + new Date() + " "
-						+ ex.getMessage());
+				System.out.println(
+						"Error / Rate limit reached, sleeping for pre-set time." + new Date() + " " + ex.getMessage());
 				try {
 					Thread.sleep(1000 * 60 * Util.ThrottlerWaitTimeMinutes);
 				} catch (InterruptedException e) {
@@ -81,9 +91,9 @@ public class BasicTimelineCrawler implements Runnable {
 
 		if (cachedTimeline != null) {
 			timeline.append(cachedTimeline);
-			System.out.println("Updated timeline +"
-					+ (timeline.getStatusList().size() - cachedTimeline.getStatusList().size()) + ": "
-					+ user.getScreenName());
+			System.out.println(
+					"Updated timeline +" + (timeline.getStatusList().size() - cachedTimeline.getStatusList().size())
+							+ ": " + user.getScreenName());
 		} else {
 			System.out.println("New timeline " + timeline.getStatusList().size() + ": " + user.getScreenName());
 		}
@@ -91,27 +101,6 @@ public class BasicTimelineCrawler implements Runnable {
 		repository.put(timeline);
 		return timeline;
 
-	}
-
-	public static void main(String[] args) {
-
-		OAuthSignpostClient oauthClient = new OAuthSignpostClient("N2LZiDdNAqY1qtgJ8EPRoAdx9",
-				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU", "oob");
-		// Open the authorisation page in the user's browser. On a desktop, we
-		// can do that like this:
-		oauthClient.authorizeDesktop();
-		// get the pin
-		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
-		oauthClient.setAuthorizationCode(v);
-		// Store the authorisation token details for future use
-		String[] accessToken = oauthClient.getAccessToken();
-
-		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
-
-		DiskCache cache = DiskCache.getInstance();
-
-		BasicTimelineCrawler crawler = new BasicTimelineCrawler(twitter, cache, "giuseppe14291");
-		crawler.run();
 	}
 
 	public static boolean needsUpdate(Timeline timeline, int numOfUpdatesToRetrieve) {
@@ -124,19 +113,6 @@ public class BasicTimelineCrawler implements Runnable {
 		// updates we can retrieve per call
 		return (daysSinceLastUpdate * updateFrequency) > numOfUpdatesToRetrieve;
 
-	}
-
-	private PersistentCache repository;
-
-	private String rootUser;
-
-	private static Twitter twitter;
-
-	public BasicTimelineCrawler(Twitter twitter, PersistentCache repository, String rootUser) {
-		super();
-		this.twitter = twitter;
-		this.repository = repository;
-		this.rootUser = rootUser;
 	}
 
 	/**
@@ -168,39 +144,29 @@ public class BasicTimelineCrawler implements Runnable {
 		}
 	}
 
-	private static void checkRateLimitStatus() {
-		try {
-			int rateLimitStatus = twitter.getRateLimitStatus();
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
 
-			if (rateLimitStatus <= 0) {
-				int remainingTime = 900000;
-				System.out.println("Twitter request rate limit reached. Waiting " + remainingTime / 60
-						+ " minutes to request again.");
-				try {
-					Thread.sleep(remainingTime * 1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (TwitLongerException te) {
-			System.err.println(te.getMessage());
-			if (te.getMessage().equals("503")) {
-				try {
-					Thread.sleep(120 * 1000);// wait 2 minutes
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
+		OAuthSignpostClient oauthClient = new OAuthSignpostClient("N2LZiDdNAqY1qtgJ8EPRoAdx9",
+				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU", "oob");
+		oauthClient.authorizeDesktop();
+		@SuppressWarnings("static-access")
+		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
+		oauthClient.setAuthorizationCode(v);
+		@SuppressWarnings("unused")
+		String[] accessToken = oauthClient.getAccessToken();
+		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
 
-		}
+		DiskCache cache = DiskCache.getInstance();
+
+		BasicTimelineCrawler crawler = new BasicTimelineCrawler(twitter, cache, 769181646176284672L, "giuseppe14291");
+		crawler.run();
 	}
 
+	@SuppressWarnings("deprecation")
 	public void run() {
-		UserProfile cachedValue = UserProfile.getInstance(repository, rootUser);
-		User rootUserData = (cachedValue != null) ? cachedValue.getUser()
-				: User.getInstance(twitter.show(769181646176284672L));
+		UserProfile cachedValue = UserProfile.getInstance(this.repository, this.userScreenName);
+		User rootUserData = (cachedValue != null) ? cachedValue.getUser() : User.getInstance(twitter.show(this.userId));
 		crawlBreadthFirst(rootUserData);
 
 	}

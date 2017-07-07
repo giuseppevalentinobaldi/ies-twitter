@@ -26,6 +26,7 @@ public class FileDownload {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public static void download(String address, String localFileName) {
 		OutputStream out = null;
 		URLConnection conn = null;

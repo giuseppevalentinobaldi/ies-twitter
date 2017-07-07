@@ -155,6 +155,7 @@ public class NamedEntityRecognizer implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public static NamedEntityRecognizer getInstance() {
 		final boolean scopeCompaniesAndProducts = true;
 

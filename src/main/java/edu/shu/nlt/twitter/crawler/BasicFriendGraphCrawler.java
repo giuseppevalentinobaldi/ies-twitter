@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.json.JSONException;
 
+import winterwell.jtwitter.OAuthSignpostClient;
 import winterwell.jtwitter.Twitter;
 import edu.shu.nlt.twitter.crawler.data.User;
 import edu.shu.nlt.twitter.crawler.data.UserProfile;
@@ -23,6 +24,19 @@ public class BasicFriendGraphCrawler implements Runnable {
 
 	static final int maxDepth = 2;
 
+	private PersistentCache repository;
+	private long userId;
+	private String userScreenName;
+	private Twitter twitter;
+
+	public BasicFriendGraphCrawler(Twitter twitter, PersistentCache repository, long userId, String userScreenName) {
+		super();
+		this.twitter = twitter;
+		this.repository = repository;
+		this.userId = userId;
+		this.userScreenName = userScreenName;
+	}
+
 	private static List<User> adaptUsers(List<winterwell.jtwitter.User> users) {
 		List<User> adaptedUsers = new ArrayList<User>(users.size());
 
@@ -38,6 +52,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 	 * @param user
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static UserProfile ensureUserProfile(PersistentCache repository, Twitter twitter, User user) {
 		UserProfile userWrapper = UserProfile.getInstance(repository, user.getScreenName());
 
@@ -63,7 +78,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 				} else {
 					ex.printStackTrace();
 
-					System.out.println("Error / Rate limit reached, sleeping for preset time.65" + new Date() + " "
+					System.out.println("Error / Rate limit reached, sleeping for preset time." + new Date() + " "
 							+ ex.getMessage());
 					try {
 						Thread.sleep(1000 * 60 * Util.ThrottlerWaitTimeMinutes);
@@ -77,29 +92,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 		}
 		return userWrapper;
 	}
-
-	public static void main(String[] args) {
-
-		Twitter twitter = new Twitter("shuw", "direwolf");
-		DiskCache cache = DiskCache.getInstance();
-
-		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, "shanselman");
-		crawler.run();
-	}
-
-	private PersistentCache repository;
-
-	private String rootUser;
-
-	private Twitter twitter;
-
-	public BasicFriendGraphCrawler(Twitter twitter, PersistentCache repository, String rootScreenName) {
-		super();
-		this.twitter = twitter;
-		this.repository = repository;
-		this.rootUser = rootScreenName;
-	}
-
+	
 	/**
 	 * Depth first algorithm for crawling the social network
 	 * 
@@ -138,13 +131,35 @@ public class BasicFriendGraphCrawler implements Runnable {
 
 	}
 
+	@SuppressWarnings("deprecation")
+	public static void main(String[] args) {
+
+		OAuthSignpostClient oauthClient = new OAuthSignpostClient("N2LZiDdNAqY1qtgJ8EPRoAdx9",
+				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU", "oob");
+		oauthClient.authorizeDesktop();
+		@SuppressWarnings("static-access")
+		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
+		oauthClient.setAuthorizationCode(v);
+		@SuppressWarnings("unused")
+		String[] accessToken = oauthClient.getAccessToken();
+		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
+
+		DiskCache cache = DiskCache.getInstance();
+
+		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, 769181646176284672L,
+				"giuseppe14291");
+		crawler.run();
+	}
+
+	@SuppressWarnings("deprecation")
 	public void run() {
-		UserProfile cachedValue = UserProfile.getInstance(repository, rootUser);
-		User rootUserData = (cachedValue != null) ? cachedValue.getUser() : User.getInstance(twitter.show(rootUser));
+		UserProfile cachedValue = UserProfile.getInstance(userScreenName);
+		User rootUserData = (cachedValue != null) ? cachedValue.getUser() : User.getInstance(twitter.show(userId));
 
 		// getFriendsDepthFirst(rootUserData, 0);
 		getFriendsBreadthFirst(rootUserData);
 
-		System.out.println("Finished crawling @" + rootUser + " up to depth " + (maxDepth + 1));
+		System.out.println("Finished crawling @" + userId + " up to depth " + (maxDepth + 1));
 	}
+
 }
