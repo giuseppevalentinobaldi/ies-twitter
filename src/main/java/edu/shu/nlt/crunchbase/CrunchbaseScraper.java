@@ -30,7 +30,7 @@ public class CrunchbaseScraper implements Runnable {
 
 		File file = new File(cachePath + "/" + type, crunchbaseId);
 		if (!file.exists()) {
-			String url = "http://api.crunchbase.com/v/1/" + type + "/" + crunchbaseId + ".js";
+			String url = "http://api.crunchbase.com/v/2/" + type + "/" + crunchbaseId + ".js";
 			FileDownload.download(url, file.toString());
 			System.out.println("downloaded: " + url);
 
