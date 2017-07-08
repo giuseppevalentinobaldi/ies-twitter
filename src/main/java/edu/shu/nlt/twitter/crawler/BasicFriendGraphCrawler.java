@@ -68,7 +68,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 				System.out.println("New data: " + user.getScreenName());
 
 			} catch (Exception ex) {
-				if (ex.getMessage().contains("404")) {
+				if (ex.getMessage().contains("401 Unauthorized") || ex.getMessage().contains("404 Error")) {
 					// do nothing
 				} else if (ex.getCause() instanceof JSONException) {
 					System.out.println("User JSON error: " + user.getScreenName());
@@ -131,19 +131,14 @@ public class BasicFriendGraphCrawler implements Runnable {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-
+		
 		OAuthSignpostClient oauthClient = new OAuthSignpostClient("N2LZiDdNAqY1qtgJ8EPRoAdx9",
-				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU", "oob");
-		oauthClient.authorizeDesktop();
-		@SuppressWarnings("static-access")
-		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
-		oauthClient.setAuthorizationCode(v);
-		@SuppressWarnings("unused")
-		String[] accessToken = oauthClient.getAccessToken();
+				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU",
+				"769181646176284672-EYL3wIrIl5bx2lSBPtFweSocignMguH", 
+				"bbRELLK6X4EvKvfIharcz8I1zXGykLAiJz1X1TGwenuho");
 		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
-
+		
 		DiskCache cache = DiskCache.getInstance();
 
 		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, 769181646176284672L,

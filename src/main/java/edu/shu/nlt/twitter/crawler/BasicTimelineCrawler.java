@@ -144,17 +144,11 @@ public class BasicTimelineCrawler implements Runnable {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-
 		OAuthSignpostClient oauthClient = new OAuthSignpostClient("N2LZiDdNAqY1qtgJ8EPRoAdx9",
-				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU", "oob");
-		oauthClient.authorizeDesktop();
-		@SuppressWarnings("static-access")
-		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
-		oauthClient.setAuthorizationCode(v);
-		@SuppressWarnings("unused")
-		String[] accessToken = oauthClient.getAccessToken();
+				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU",
+				"769181646176284672-EYL3wIrIl5bx2lSBPtFweSocignMguH", 
+				"bbRELLK6X4EvKvfIharcz8I1zXGykLAiJz1X1TGwenuho");
 		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
 
 		DiskCache cache = DiskCache.getInstance();
@@ -168,6 +162,5 @@ public class BasicTimelineCrawler implements Runnable {
 		UserProfile cachedValue = UserProfile.getInstance(this.repository, this.userScreenName);
 		User rootUserData = (cachedValue != null) ? cachedValue.getUser() : User.getInstance(twitter.show(this.userId));
 		crawlBreadthFirst(rootUserData);
-
 	}
 }
