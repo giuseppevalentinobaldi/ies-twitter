@@ -137,12 +137,12 @@ public class BasicFriendGraphCrawler implements Runnable {
 				"ayLGG7YtnVykMbkfNZ3XyYZRo1FDCC4sIO8VBSJELBOoM6lYHU",
 				"769181646176284672-EYL3wIrIl5bx2lSBPtFweSocignMguH", 
 				"bbRELLK6X4EvKvfIharcz8I1zXGykLAiJz1X1TGwenuho");
-		Twitter twitter = new Twitter("giuseppe14291", oauthClient);
+		Twitter twitter = new Twitter("Giuseppe14291", oauthClient);
 		
 		DiskCache cache = DiskCache.getInstance();
 
 		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, 769181646176284672L,
-				"giuseppe14291");
+				"Giuseppe14291");
 		crawler.run();
 	}
 
