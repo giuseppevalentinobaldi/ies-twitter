@@ -68,8 +68,8 @@ public class BasicFriendGraphCrawler implements Runnable {
 				System.out.println("New data: " + user.getScreenName());
 
 			} catch (Exception ex) {
-				if (ex.getMessage().contains("401 Unauthorized") || ex.getMessage().contains("404 Error")) {
-					// do nothing
+				if (ex.getMessage().contains("401") || ex.getMessage().contains("404")) {
+					System.out.println("401/404 ignored" + user.getScreenName());
 				} else if (ex.getCause() instanceof JSONException) {
 					System.out.println("User JSON error: " + user.getScreenName());
 
@@ -141,8 +141,7 @@ public class BasicFriendGraphCrawler implements Runnable {
 		
 		DiskCache cache = DiskCache.getInstance();
 
-		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, 769181646176284672L,
-				"Giuseppe14291");
+		BasicFriendGraphCrawler crawler = new BasicFriendGraphCrawler(twitter, cache, 5676102L, "shanselman");
 		crawler.run();
 	}
 

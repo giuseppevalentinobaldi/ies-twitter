@@ -71,7 +71,7 @@ public class BasicTimelineCrawler implements Runnable {
 			timeline = Timeline.getInstance(user.getScreenName(), adaptStatusList(statusList), new Date());
 
 		} catch (Exception ex) {
-			if (ex.getMessage().contains("401 Unauthorized") || ex.getMessage().contains("404 Error")) {
+			if (ex.getMessage().contains("401") || ex.getMessage().contains("404")) {
 				System.out.println("401/404 ignored" + user.getScreenName());
 
 				timeline = Timeline.getInstance(user.getScreenName(), null, new Date());
@@ -153,7 +153,7 @@ public class BasicTimelineCrawler implements Runnable {
 
 		DiskCache cache = DiskCache.getInstance();
 
-		BasicTimelineCrawler crawler = new BasicTimelineCrawler(twitter, cache, 769181646176284672L, "Giuseppe14291");
+		BasicTimelineCrawler crawler = new BasicTimelineCrawler(twitter, cache, 5676102L, "shanselman");
 		crawler.run();
 	}
 

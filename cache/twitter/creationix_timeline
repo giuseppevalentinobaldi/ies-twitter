@@ -1,0 +1,42 @@
+1499697403942
+creationix
+-287870976	1499654254000	@ZeroTier Oh, also make sure your DNS service has APIs so I can do lets-encrypt dns-01 challenges.  The other challenges don't work on private IPs.
+!------------------------------
+710332417	1499654191000	@_lennart @ZeroTier I'm having trouble on my wife's iPhone.  I wonder if the iOS integration has issues.
+!------------------------------
+1633116160	1499654105000	Good night puppies. https://t.co/pZZQpGLkaw
+!------------------------------
+1888980993	1499561614000	@taravancil @coolaj86 It sounds similar using domains, .well-known files, dns records, and web tokens.
+!------------------------------
+1003933696	1499561551000	@taravancil You should talk to @coolaj86 about his identity ideas if he has time.
+!------------------------------
+1926713344	1499545164000	@ag_dubs PolarBear and ButterScotch  or as my kids like to say:  PolarScotch and ButterBear ;)
+!------------------------------
+1498918913	1499542584000	@ag_dubs They do sit still while eating though. https://t.co/ljcM7FnIuL
+!------------------------------
+659947522	1499542529000	@ag_dubs I keep trying, but they move too fast. https://t.co/2aU1vDD1ZY
+!------------------------------
+320319488	1499542093000	@mbrevoort so I guess I need to use different local dns servers while on the private network then.
+!------------------------------
+664244228	1499540569000	I want to feed it a folder of media files with maybe some optional structure and have it generate static html I can serve on an intranet.
+!------------------------------
+-1164472319	1499540526000	Does anyone know of modern software for generating static websites from media libraries? I've got terabytes of pictures, videos, and audio.
+!------------------------------
+1339527168	1499492109000	My question is how can I setup DNS so that clients on the virtual network get the private address while others get get routed to a proxy.
+!------------------------------
+-1902727167	1499492014000	It's basically a global VPN where anyone on the same virtual network can see anyone else. You can use their global network or make your own.
+!------------------------------
+538415105	1499491525000	Anyone have experience with ZeroTier?   The design sounds amazing.  I'm wondering why it's not more popular. https://t.co/J0cw7sImkb
+!------------------------------
+1314353152	1499487315000	@indutny @left_pad I thought it was very neat.  My issue is just lack of time.  Also I have experience with AST, and only theoretical knowledge of SSA.
+!------------------------------
+982908928	1499487117000	@StormyKittyhawk @SamuelAFalvoII You two look great together.  Enjoy your travels.
+!------------------------------
+-224944128	1499487032000	@kentcdodds Great idea.  I always want someone to pair with to keep me focused.  Never though about using live streaming for the same effect.
+!------------------------------
+-2053713920	1499486975000	RT @canalmormon: ¿Estás consciente de tu diálogo interior? https://t.co/4SCU6xgHFm https://t.co/zkJfmVlA68
+!------------------------------
+-526950400	1499486911000	@noopkat @Twitch Awesome writeup.  I've always wanted to do this, but never knew where to start.  Now if only I could find the time...
+!------------------------------
+-862666752	1499453100000	@evilhackerdude I don't know if it does serial.  I use it as a `dd` replacement.
+!------------------------------

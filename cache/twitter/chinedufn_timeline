@@ -1,0 +1,42 @@
+1499692794896
+chinedufn
+-338309117	1499595515000	I just published a line by line explanation of a dual quaternion linear blending vertex shader - https://t.co/mTfNP1gVh2 https://t.co/1x8LLOztn1
+!------------------------------
+127315968	1499476669000	@kevzettler my eye will continue to be on glTF though. I don't want to get in while it's still early. Will wait for the wider support
+!------------------------------
+957837313	1499476400000	@kevzettler why don't I target glTF? Spec covers much more than my current needs. Doing my own thing let's me evolve and learn at my pace
+!------------------------------
+-1265127423	1499476331000	@kevzettler so went with parsing COLLADA, the most matured format at the time. My real end goal is to skip COLLADA entirely and export JSON
+!------------------------------
+-292073472	1499476249000	@kevzettler so I chose to implement my own, tested "exporter" that would slowly evolve as my needs evolved. But of course I knew 0 Python
+!------------------------------
+-212377599	1499476131000	@kevzettler the big issue with all of these formats is you export something and then it doesn't work and you go "?????".
+!------------------------------
+-656977918	1499476087000	@kevzettler I looked into using it last year but I couldn't find any exporters that were heavily unit tested. Which was scary for because...
+!------------------------------
+710160385	1499474739000	Very excited that @alvinsight is working on supporting multiple geometries when parsing COLLADA files! - https://t.co/ltnSSUs5Cs
+!------------------------------
+840286208	1499213793000	Working on a line by line explanation of a dual quaternion skinning vertex shader. DQs are great for shortest path rotation interpolation https://t.co/jtrkoV44Ry
+!------------------------------
+-1248542720	1499174278000	Hats off to this README author - got connected to a Postgres server right away without knowing a lick of rustlang - https://t.co/4QVpJynvUj
+!------------------------------
+135544832	1499094618000	@SeannClarkk_ plug
+!------------------------------
+110362624	1498698418000	Wrote an "explain it like i'm 5" reddit comment on FK vs IK rig, when they're useful, and why you'd convert IK -> FK https://t.co/BMUGZXyePh
+!------------------------------
+1569988608	1498615110000	RT @kevzettler: @chinedufn Tiny details like that can add a lot of feel but best left till the core game is fleshed out
+!------------------------------
+-1974087680	1498609390000	So now I know not to spend as much time on tiny assets
+!------------------------------
+-1261174784	1498609353000	Spent time making on a really small pine marten (mammal) model - added it into my engine - but I can't really see anything that I worked on. https://t.co/bVTebMZnGb
+!------------------------------
+399876097	1498251465000	@chromakode that would be a complete game changer. So impressive that Blender data is accessible enough to make that even possible
+!------------------------------
+1624506369	1498251055000	@chromakode smooth approach - curious - what're you planning to use your tool for when you get it working ?
+!------------------------------
+1268043778	1498250713000	@chromakode especially interested in how your unit test approach ends up
+!------------------------------
+-980041728	1498250687000	@chromakode please, please, please keep me posted. This sounds 2 cool
+!------------------------------
+1087750144	1498250557000	RT @chromakode: @chinedufn Feeling the same! It's amazing how accessible all the internal data is. Hacking on an F-Curve JS impl this weekend. What are you working on?
+!------------------------------
