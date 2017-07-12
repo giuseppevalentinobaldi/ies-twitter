@@ -24,7 +24,7 @@ public class CompanyInfo implements Serializable {
 
 	public static CompanyInfo getInstance(String crunchbaseId) {
 
-		File cachedInfo = new File("cache/crunchbase/company", crunchbaseId);
+		File cachedInfo = new File("cache/crunchbase/company/", crunchbaseId);
 
 		if (cachedInfo.exists()) {
 			try {

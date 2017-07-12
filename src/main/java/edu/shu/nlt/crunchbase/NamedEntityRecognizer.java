@@ -115,7 +115,6 @@ public class NamedEntityRecognizer implements Serializable {
 	private void initialize() {
 
 		personList = new PersonList(new File("data/crunchbase/people.js"));
-
 		// Initialize company & product list
 		//
 		if (!filterCompaniesAndProducts) {
@@ -137,7 +136,6 @@ public class NamedEntityRecognizer implements Serializable {
 				CompanyInfo companyInfo = company.getCompanyInfo();
 
 				if (companyInfo != null && companyInfo.getEmployees().size() >= c_minCompanyEmployees) {
-
 					System.out.println("Processing company: " + company.getName() + "  total processed: "
 							+ totalCompaniesProcessed);
 
